@@ -1,0 +1,30 @@
+
+[
+    {
+        "id": 1,
+        "nome": "Teclado USB",
+        "categoria": "Periféricos",
+        "fornecedor": "Tech Distribuidora",
+        "quantidade": 3,
+        "estoque_minimo": 5,
+        "data_baixa": ""
+    },
+    {
+        "id": 2,
+        "nome": "Mouse sem fio",
+        "categoria": "Periféricos",
+        "fornecedor": "Info Comercial",
+        "quantidade": 12,
+        "estoque_minimo": 5,
+        "data_baixa": ""
+    },
+    {
+        "id": 3,
+        "nome": "Cabo HDMI",
+        "categoria": "Acessórios",
+        "fornecedor": "Eletrônica Silva",
+        "quantidade": 2,
+        "estoque_minimo": 10,
+        "data_baixa": ""
+    }
+]
