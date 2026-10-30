@@ -1,4 +1,4 @@
-# Senai Estoque · Gestão de Inventário
+# Senai Estoque · Gerênciamento de Inventário
 
 ## 📌 Escopo do Projeto
 
