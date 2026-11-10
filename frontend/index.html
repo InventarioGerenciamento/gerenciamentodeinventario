@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f8fc">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Senai estoque">
-  <title>Senai estoque · Gestão de inventário</title>
+  <meta name="apple-mobile-web-app-title" content="Estoque Inteligente">
+  <title>Estoque Inteligente · Gestão de inventário</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon-180.png">
@@ -18,7 +18,7 @@
 <body>
   <section class="auth-screen" id="auth-screen">
     <div class="auth-card">
-      <a class="brand auth-brand" href="./" aria-label="Senai estoque"><span class="brand-mark">S</span><span>Senai estoque<span class="brand-dot">.</span><small>GESTÃO DE INVENTÁRIO</small></span></a>
+      <a class="brand auth-brand" href="./" aria-label="Estoque Inteligente"><span class="brand-mark">E</span><span>Estoque Inteligente<span class="brand-dot">.</span><small>GESTÃO DE INVENTÁRIO</small></span></a>
       <div class="eyebrow">ACESSO AO INVENTÁRIO</div>
       <h1>Entre na sua conta</h1>
       <p class="auth-description">Use o e-mail autorizado para acessar os dados do estoque.</p>
@@ -34,7 +34,7 @@
     </div>
   </section>
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#inicio" aria-label="Senai estoque início"><span class="brand-mark">S</span><span>Senai estoque<span class="brand-dot">.</span><small>GESTÃO DE INVENTÁRIO</small></span></a>
+    <a class="brand" href="#inicio" aria-label="Estoque Inteligente início"><span class="brand-mark">E</span><span>Estoque Inteligente<span class="brand-dot">.</span><small>GESTÃO DE INVENTÁRIO</small></span></a>
     <div class="workspace-label">ESPAÇO DE TRABALHO</div>
     <nav class="navigation" aria-label="Navegação principal">
       <button class="nav-item active" data-page="inicio"><span class="nav-icon">⌂</span>Visão geral</button>
@@ -51,7 +51,7 @@
   <main class="main-area">
     <header class="topbar"><button class="mobile-menu" id="mobile-menu" aria-label="Abrir menu">☰</button><div class="breadcrumb"><span>Workspace</span><span class="crumb-sep">/</span><strong id="crumb-current">Visão geral</strong></div><div class="top-actions"><span class="today" id="today"></span><button class="button button-quiet install-app-button" id="install-app" type="button" aria-label="Instalar aplicativo" hidden><span aria-hidden="true">⇩</span><span class="install-label">Instalar app</span></button><button class="icon-button notification" aria-label="Notificações">♧<i></i></button><div class="top-avatar" id="top-avatar">US</div></div></header>
     <div class="content" id="content"></div>
-    <footer class="footer"><span>Senai estoque <span class="footer-dot">•</span> Gestão simples, estoque organizado.</span><span>DEMONSTRAÇÃO INTERATIVA <span class="live-dot"></span></span></footer>
+    <footer class="footer"><span>Estoque Inteligente <span class="footer-dot">•</span> Gestão simples, estoque organizado.</span><span>DEMONSTRAÇÃO INTERATIVA <span class="live-dot"></span></span></footer>
   </main>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <dialog id="record-dialog"><form id="record-form" method="dialog"><div class="dialog-top"><div><div class="eyebrow">NOVO REGISTRO</div><h2 id="dialog-title">Adicionar item</h2></div><button class="dialog-close" type="button" id="dialog-close" aria-label="Fechar">×</button></div><p class="dialog-description" id="dialog-description">Preencha os dados abaixo para continuar.</p><div class="form-fields" id="form-fields"></div><div class="dialog-actions"><button type="button" class="button button-quiet" id="cancel-button">Cancelar</button><button class="button button-primary" type="submit"><span id="submit-label">Salvar registro</span><span>→</span></button></div></form></dialog>

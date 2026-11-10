@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Senai estoque · Gestão de inventário",
-  "short_name": "Senai estoque",
+  "name": "Estoque Inteligente · Gestão de inventário",
+  "short_name": "Estoque Inteligente",
   "description": "Gestão simples de produtos e inventário.",
   "lang": "pt-BR",
   "start_url": "./",
