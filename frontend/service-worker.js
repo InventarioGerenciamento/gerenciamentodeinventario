@@ -1,4 +1,4 @@
-const CACHE_NAME = "senai-estoque-v10";
+const CACHE_NAME = "senai-estoque-v11";
 const APP_SHELL = [
   "./",
   "./index.html",
