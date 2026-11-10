@@ -1,7 +1,7 @@
 :root {
   font-family: "DM Sans", sans-serif;
   color: #243047;
-  background: #e9edf3 url("https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2400&q=85") center / cover fixed;
+  background: #e9edf3 url("./assets/inventario-de-estoque.jpeg") center / cover fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   --ink: #243047;
@@ -1008,7 +1008,7 @@ dialog form {
 .auth-screen[hidden] { display: none; }
 .auth-screen {
   position: fixed; inset: 0; z-index: 30; display: grid; place-items: center;
-  padding: 24px; overflow-y: auto; background: linear-gradient(135deg,#101c2cb8,#15243bd1),url("https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2400&q=85") center / cover fixed;
+  padding: 24px; overflow-y: auto; background: linear-gradient(135deg,#101c2cb8,#15243bd1),url("./assets/inventario-de-estoque.jpeg") center / cover fixed;
 }
 .auth-card {
   width: min(100%, 420px); padding: 34px; border: 1px solid #e9edf3;
