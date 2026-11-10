@@ -1035,7 +1035,7 @@ dialog form {
 .toast.stock-alert { background: #a83240; border: 1px solid #ffb1b8; box-shadow: 0 12px 34px #a8324050; font-weight: 700; }
 @media (max-width: 600px) { .toast { left: 14px; right: 14px; bottom: 18px; text-align: center; transform: translateY(14px); } .toast.show { transform: translateY(0); } }
 
-.dashboard-head .eyebrow { color: #566278; font-weight: 800; letter-spacing: 1.35px; }
-.dashboard-head h1 { font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.8px; }
-.dashboard-head p { color: #5e6a7d; font-size: 15px; font-weight: 500; line-height: 1.65; }
+.dashboard-head .eyebrow { color: #3157c8; font-weight: 800; letter-spacing: 1.35px; }
+.dashboard-head h1 { color: #3157c8; font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.8px; }
+.dashboard-head p { color: #3157c8; font-size: 15px; font-weight: 600; line-height: 1.65; }
 @media (max-width: 620px) { .dashboard-head h1 { font-size: 27px; } .dashboard-head p { font-size: 14px; } }
