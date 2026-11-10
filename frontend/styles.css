@@ -40,7 +40,7 @@ body {
   text-decoration: none;
   margin: 0 0 43px 9px;
   font:
-    800 20px Manrope,
+    800 25px Manrope,
     sans-serif;
   letter-spacing: -0.8px;
 }
@@ -52,7 +52,7 @@ body {
   color: #fff;
   display: grid;
   place-items: center;
-  font: 800 20px Manrope;
+  font: 800 25px Manrope;
   box-shadow: 0 6px 15px #526cf237;
 }
 .brand-dot {
@@ -60,7 +60,7 @@ body {
 }
 .brand small {
   display: block;
-  font: 600 8px "DM Sans";
+  font: 600 10px "DM Sans";
   letter-spacing: 1.7px;
   color: #94a0b1;
   margin-top: 2px;
@@ -68,7 +68,7 @@ body {
 .workspace-label,
 .nav-group-label {
   color: #a1aabb;
-  font-size: 9px;
+  font-size: 11.25px;
   font-weight: 700;
   letter-spacing: 1.2px;
   padding: 0 11px;
@@ -80,7 +80,7 @@ body {
   gap: 3px;
 }
 .nav-item {
-  font: 500 13px "DM Sans";
+  font: 500 16.25px "DM Sans";
   text-align: left;
   color: #78859a;
   background: none;
@@ -105,7 +105,7 @@ body {
 .nav-icon {
   width: 18px;
   text-align: center;
-  font-size: 18px;
+  font-size: 22.5px;
   line-height: 16px;
   color: inherit;
 }
@@ -114,7 +114,7 @@ body {
   margin-bottom: 8px;
 }
 .nav-count {
-  font-size: 10px;
+  font-size: 12.5px;
   margin-left: auto;
   background: #f1f3f8;
   color: #818da1;
@@ -139,14 +139,14 @@ body {
   height: 29px;
   color: #5c6feb;
   background: #edf0ff;
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 12px;
 }
 .help-card strong {
-  font: 600 11px Manrope;
+  font: 600 13.75px Manrope;
 }
 .help-card p {
-  font-size: 10px;
+  font-size: 12.5px;
   color: #8792a3;
   line-height: 1.5;
   margin: 5px 0 10px;
@@ -156,7 +156,7 @@ body {
   background: none;
   border: 0;
   color: #5369e8;
-  font: 600 10px "DM Sans";
+  font: 600 12.5px "DM Sans";
   cursor: pointer;
 }
 .help-card button span {
@@ -178,7 +178,7 @@ body {
   place-items: center;
   background: #e9eaff;
   color: #5c67cb;
-  font-size: 10px;
+  font-size: 12.5px;
   font-weight: 700;
 }
 .profile-info strong,
@@ -186,11 +186,11 @@ body {
   display: block;
 }
 .profile-info strong {
-  font-size: 11px;
+  font-size: 13.75px;
   font-weight: 600;
 }
 .profile-info small {
-  font-size: 9px;
+  font-size: 11.25px;
   color: #9aa4b4;
   margin-top: 3px;
 }
@@ -199,7 +199,7 @@ body {
   border: 0;
   background: none;
   color: #9aa4b4;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
 }
 .main-area {
@@ -221,11 +221,11 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
+  font-size: 13.75px;
   color: #9aa4b5;
 }
 .breadcrumb strong {
-  font-size: 11px;
+  font-size: 13.75px;
   color: #39465d;
   font-weight: 600;
 }
@@ -243,7 +243,7 @@ body {
   white-space: nowrap;
 }
 .today {
-  font-size: 10px;
+  font-size: 12.5px;
   color: #9aa4b4;
 }
 .icon-button {
@@ -255,7 +255,7 @@ body {
   background: #fff;
   color: #76839a;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 17.5px;
 }
 .notification i {
   position: absolute;
@@ -270,7 +270,7 @@ body {
 .top-avatar {
   width: 29px;
   height: 29px;
-  font-size: 9px;
+  font-size: 11.25px;
 }
 .mobile-menu {
   display: none;
@@ -287,10 +287,10 @@ body {
   border-top: 1px solid #e9edf3;
   padding: 15px 42px;
   color: #9aa4b4;
-  font-size: 9px;
+  font-size: 11.25px;
 }
 .footer > span:last-child {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 1px;
 }
 .footer-dot {
@@ -307,7 +307,7 @@ body {
 }
 .eyebrow {
   color: #8490a4;
-  font-size: 9px;
+  font-size: 11.25px;
   font-weight: 700;
   letter-spacing: 1.2px;
 }
@@ -320,7 +320,7 @@ body {
 }
 .page-head h1 {
   font:
-    700 25px Manrope,
+    700 31.25px Manrope,
     sans-serif;
   letter-spacing: -0.7px;
   color: #253148;
@@ -328,14 +328,14 @@ body {
 }
 .page-head p {
   color: #8994a5;
-  font-size: 12px;
+  font-size: 15px;
   margin: 0;
   line-height: 1.6;
 }
 .button {
   border-radius: 8px;
   padding: 10px 14px;
-  font: 600 11px "DM Sans";
+  font: 600 13.75px "DM Sans";
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -377,7 +377,7 @@ body {
   justify-content: space-between;
   align-items: center;
   color: #8390a4;
-  font-size: 10px;
+  font-size: 12.5px;
 }
 .metric-icon {
   height: 28px;
@@ -387,7 +387,7 @@ body {
   place-items: center;
   background: #f0f2ff;
   color: #626fe0;
-  font-size: 14px;
+  font-size: 17.5px;
 }
 .metric-icon.green {
   background: #eaf7f1;
@@ -402,13 +402,13 @@ body {
   color: #ca6978;
 }
 .metric-value {
-  font: 700 24px Manrope;
+  font: 700 30px Manrope;
   color: #27334b;
   margin-top: 9px;
   letter-spacing: -1px;
 }
 .metric-note {
-  font-size: 9px;
+  font-size: 11.25px;
   color: #9aa4b4;
   margin-top: 4px;
 }
@@ -434,12 +434,12 @@ body {
   justify-content: space-between;
 }
 .panel-head h2 {
-  font: 600 12px Manrope;
+  font: 600 15px Manrope;
   margin: 0;
   color: #354158;
 }
 .panel-head p {
-  font-size: 9px;
+  font-size: 11.25px;
   color: #9aa4b4;
   margin: 4px 0 0;
 }
@@ -447,7 +447,7 @@ body {
   border: 0;
   background: none;
   color: #5a6feb;
-  font: 600 10px "DM Sans";
+  font: 600 12.5px "DM Sans";
   cursor: pointer;
 }
 .activity-list {
@@ -468,31 +468,31 @@ body {
   color: #6575e5;
   display: grid;
   place-items: center;
-  font-size: 13px;
+  font-size: 16.25px;
 }
 .activity-copy {
   min-width: 0;
   flex: 1;
 }
 .activity-copy strong {
-  font-size: 10px;
+  font-size: 12.5px;
   font-weight: 600;
   display: block;
   color: #354158;
 }
 .activity-copy span {
-  font-size: 9px;
+  font-size: 11.25px;
   color: #9aa4b4;
   display: block;
   margin-top: 3px;
 }
 .activity-time {
-  font-size: 8px;
+  font-size: 10px;
   color: #a6afbc;
   white-space: nowrap;
 }
 .empty-activity {
-  font-size: 11px;
+  font-size: 13.75px;
   line-height: 1.6;
   color: #9aa4b4;
   padding: 17px 0;
@@ -518,19 +518,19 @@ body {
 }
 .quick-action span {
   display: block;
-  font-size: 16px;
+  font-size: 20px;
   color: #6175ed;
   margin-bottom: 8px;
 }
 .quick-action strong {
   display: block;
-  font-size: 10px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #39455c;
 }
 .quick-action small {
   display: block;
-  font-size: 9px;
+  font-size: 11.25px;
   color: #9aa4b4;
   margin-top: 3px;
 }
@@ -546,10 +546,10 @@ body {
 }
 .demo-note > span {
   color: #6375ed;
-  font-size: 15px;
+  font-size: 18.75px;
 }
 .demo-note p {
-  font-size: 10px;
+  font-size: 12.5px;
   color: #7e89a0;
   margin: 0;
   line-height: 1.5;
@@ -572,7 +572,7 @@ body {
   border-bottom: 1px solid #edf0f4;
 }
 .table-count {
-  font-size: 10px;
+  font-size: 12.5px;
   color: #8d98a9;
 }
 .search-box {
@@ -583,14 +583,14 @@ body {
   left: 10px;
   top: 7px;
   color: #9aa4b4;
-  font-size: 13px;
+  font-size: 16.25px;
 }
 .search-box input {
   width: 190px;
   border: 1px solid #e9edf3;
   border-radius: 7px;
   padding: 8px 10px 8px 29px;
-  font: 10px "DM Sans";
+  font: 12.5px "DM Sans";
   outline: none;
 }
 .search-box input:focus,
@@ -613,7 +613,7 @@ thead {
 }
 th {
   color: #929daf;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
   padding: 11px 15px;
   letter-spacing: 0.3px;
@@ -621,7 +621,7 @@ th {
 td {
   border-top: 1px solid #f0f2f5;
   color: #536075;
-  font-size: 10px;
+  font-size: 12.5px;
   padding: 12px 15px;
 }
 tbody tr:hover {
@@ -632,7 +632,7 @@ tbody tr:hover {
   color: #354158;
 }
 .cell-sub {
-  font-size: 9px;
+  font-size: 11.25px;
   color: #9aa4b4;
   margin-top: 3px;
 }
@@ -642,7 +642,7 @@ tbody tr:hover {
   gap: 5px;
   padding: 4px 8px;
   border-radius: 20px;
-  font-size: 9px;
+  font-size: 11.25px;
   font-weight: 500;
   background: #edf7f2;
   color: #2f8b6d;
@@ -672,7 +672,7 @@ tbody tr:hover {
   border-radius: 6px;
   background: #fff;
   color: #78859a;
-  font: 9px "DM Sans";
+  font: 11.25px "DM Sans";
   padding: 5px 8px;
   cursor: pointer;
 }
@@ -684,13 +684,13 @@ tbody tr:hover {
   text-align: center;
   padding: 36px 15px;
   color: #98a3b3;
-  font-size: 11px;
+  font-size: 13.75px;
   line-height: 1.6;
 }
 .table-empty strong {
   display: block;
   color: #47546c;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 4px;
 }
 .record-avatar {
@@ -701,7 +701,7 @@ tbody tr:hover {
   background: #f0f2ff;
   color: #6173e1;
   place-items: center;
-  font-size: 10px;
+  font-size: 12.5px;
   margin-right: 8px;
   vertical-align: middle;
 }
@@ -718,7 +718,7 @@ tbody tr:hover {
   background: #fff;
 }
 .report-card h3 {
-  font: 600 11px Manrope;
+  font: 600 13.75px Manrope;
   color: #3d4960;
   margin: 0 0 13px;
 }
@@ -730,7 +730,7 @@ tbody tr:hover {
   margin: 11px 0;
 }
 .stock-label {
-  font-size: 9px;
+  font-size: 11.25px;
   color: #758197;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -749,7 +749,7 @@ tbody tr:hover {
 .stock-number {
   text-align: right;
   color: #7f8ba0;
-  font-size: 9px;
+  font-size: 11.25px;
 }
 .category-chips {
   display: flex;
@@ -760,7 +760,7 @@ tbody tr:hover {
   border: 1px solid #e8ecf3;
   border-radius: 7px;
   padding: 7px 9px;
-  font-size: 9px;
+  font-size: 11.25px;
   color: #67748a;
   background: #fafbfc;
 }
@@ -779,7 +779,7 @@ tbody tr:hover {
   color: #fff;
   border-radius: 8px;
   padding: 11px 15px;
-  font-size: 11px;
+  font-size: 13.75px;
   box-shadow: 0 8px 25px #1f2e4b30;
   z-index: 20;
   transition: 0.22s;
@@ -807,7 +807,7 @@ dialog form {
   padding: 23px;
 }
 .install-help h2 {
-  font: 700 20px Manrope;
+  font: 700 25px Manrope;
   margin: 5px 0 0;
   letter-spacing: -0.5px;
 }
@@ -815,7 +815,7 @@ dialog form {
   padding-left: 20px;
   margin: 0 0 20px;
   color: #637087;
-  font-size: 11px;
+  font-size: 13.75px;
   line-height: 1.8;
 }
 .dialog-top {
@@ -823,7 +823,7 @@ dialog form {
   justify-content: space-between;
 }
 .dialog-top h2 {
-  font: 700 20px Manrope;
+  font: 700 25px Manrope;
   margin: 5px 0 0;
   letter-spacing: -0.5px;
 }
@@ -835,11 +835,11 @@ dialog form {
   width: 27px;
   height: 27px;
   border-radius: 7px;
-  font-size: 19px;
+  font-size: 23.75px;
   cursor: pointer;
 }
 .dialog-description {
-  font-size: 11px;
+  font-size: 13.75px;
   color: #8c98a9;
   margin: 9px 0 20px;
 }
@@ -857,7 +857,7 @@ dialog form {
   grid-column: 1/-1;
 }
 .form-field label {
-  font-size: 10px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #637087;
 }
@@ -868,7 +868,7 @@ dialog form {
   border-radius: 7px;
   padding: 0 10px;
   color: #3b4860;
-  font: 10px "DM Sans";
+  font: 12.5px "DM Sans";
   outline: 0;
   background: #fff;
 }
@@ -884,7 +884,7 @@ dialog form {
   padding-top: 15px;
 }
 .dialog-actions .button {
-  font-size: 10px;
+  font-size: 12.5px;
   padding: 9px 12px;
 }
 @media (max-width: 850px) {
@@ -932,7 +932,7 @@ dialog form {
     background: none;
     border: 0;
     color: #5c6980;
-    font-size: 17px;
+    font-size: 21.25px;
     cursor: pointer;
     margin-right: 10px;
   }
@@ -965,17 +965,17 @@ dialog form {
     align-items: flex-start;
   }
   .page-head h1 {
-    font-size: 21px;
+    font-size: 26.25px;
   }
   .page-head p {
-    font-size: 11px;
+    font-size: 13.75px;
     max-width: 250px;
   }
   .page-head .button {
     padding: 9px 10px;
     gap: 7px;
     white-space: nowrap;
-    font-size: 10px;
+    font-size: 12.5px;
   }
   .metrics {
     gap: 9px;
@@ -984,7 +984,7 @@ dialog form {
     padding: 13px;
   }
   .metric-value {
-    font-size: 21px;
+    font-size: 26.25px;
   }
   .table-toolbar {
     align-items: flex-start;
@@ -1015,22 +1015,27 @@ dialog form {
   border-radius: 18px; background: #fff; box-shadow: 0 18px 60px #24304712;
 }
 .auth-brand { margin: 0 0 34px; }
-.auth-card h1 { margin: 8px 0; color: var(--ink); font: 800 27px Manrope,sans-serif; letter-spacing: -1px; }
-.auth-description,.auth-footnote { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.auth-card h1 { margin: 8px 0; color: var(--ink); font: 800 33.75px Manrope,sans-serif; letter-spacing: -1px; }
+.auth-description,.auth-footnote { color: var(--muted); font-size: 16.25px; line-height: 1.6; }
 .auth-form { display: grid; gap: 9px; margin-top: 24px; }
-.auth-form label { color: #58647a; font-size: 12px; font-weight: 700; }
+.auth-form label { color: #58647a; font-size: 15px; font-weight: 700; }
 .auth-form input {
   width: 100%; min-height: 44px; margin-bottom: 8px; padding: 0 12px;
   border: 1px solid var(--line); border-radius: 8px; color: var(--ink);
-  font: 14px "DM Sans",sans-serif;
+  font: 17.5px "DM Sans",sans-serif;
 }
 .auth-form input:focus { outline: 2px solid #526cf233; border-color: var(--blue); }
-.auth-feedback { min-height: 18px; margin: 0; color: var(--red); font-size: 12px; }
+.auth-feedback { min-height: 18px; margin: 0; color: var(--red); font-size: 15px; }
 .auth-submit { justify-content: center; min-height: 44px; margin-top: 3px; }
 .auth-submit:disabled { cursor: wait; opacity: .65; }
-.auth-footnote { margin: 20px 0 0; font-size: 11px; }
-@media (max-width: 480px) { .auth-card { padding: 26px 22px; } .auth-card h1 { font-size: 23px; } }
+.auth-footnote { margin: 20px 0 0; font-size: 13.75px; }
+@media (max-width: 480px) { .auth-card { padding: 26px 22px; } .auth-card h1 { font-size: 28.75px; } }
 
 .toast.stock-warning { background: #a86917; border: 1px solid #f0bd67; box-shadow: 0 12px 34px #a8691740; }
 .toast.stock-alert { background: #a83240; border: 1px solid #ffb1b8; box-shadow: 0 12px 34px #a8324050; font-weight: 700; }
 @media (max-width: 600px) { .toast { left: 14px; right: 14px; bottom: 18px; text-align: center; transform: translateY(14px); } .toast.show { transform: translateY(0); } }
+
+.dashboard-head .eyebrow { color: #566278; font-weight: 800; letter-spacing: 1.35px; }
+.dashboard-head h1 { font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.8px; }
+.dashboard-head p { color: #5e6a7d; font-size: 15px; font-weight: 500; line-height: 1.65; }
+@media (max-width: 620px) { .dashboard-head h1 { font-size: 27px; } .dashboard-head p { font-size: 14px; } }
