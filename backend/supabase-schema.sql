@@ -122,7 +122,7 @@ BEGIN
         RAISE EXCEPTION 'O inventário deve conter uma lista válida de cada cadastro.';
     END IF;
 
-    DELETE FROM public.produtos;
+    DELETE FROM public.produtos WHERE true;
     INSERT INTO public.produtos (ordem, nome, categoria, fornecedor, marca, "local", quantidade, minimo, status)
     SELECT registro.ordem::integer, item.nome, item.categoria, item.fornecedor, item.marca,
         item."local", item.quantidade, item.minimo, item.status
@@ -132,7 +132,7 @@ BEGIN
         quantidade integer, minimo integer, status text
     );
 
-    DELETE FROM public.categorias;
+    DELETE FROM public.categorias WHERE true;
     INSERT INTO public.categorias (ordem, nome, descricao, produtos, status)
     SELECT registro.ordem::integer, item.nome, item.descricao, item.produtos, item.status
     FROM jsonb_array_elements(dados -> 'categorias') WITH ORDINALITY AS registro(valor, ordem)
@@ -140,7 +140,7 @@ BEGIN
         nome text, descricao text, produtos text, status text
     );
 
-    DELETE FROM public.fornecedores;
+    DELETE FROM public.fornecedores WHERE true;
     INSERT INTO public.fornecedores (ordem, nome, contato, email, telefone, categoria, status)
     SELECT registro.ordem::integer, item.nome, item.contato, item.email, item.telefone, item.categoria, item.status
     FROM jsonb_array_elements(dados -> 'fornecedores') WITH ORDINALITY AS registro(valor, ordem)
@@ -148,7 +148,7 @@ BEGIN
         nome text, contato text, email text, telefone text, categoria text, status text
     );
 
-    DELETE FROM public.locais;
+    DELETE FROM public.locais WHERE true;
     INSERT INTO public.locais (ordem, nome, categoria, setor, itens, responsavel, status)
     SELECT registro.ordem::integer, item.nome, item.categoria, item.setor, item.itens, item.responsavel, item.status
     FROM jsonb_array_elements(dados -> 'locais') WITH ORDINALITY AS registro(valor, ordem)
@@ -156,7 +156,7 @@ BEGIN
         nome text, categoria text, setor text, itens text, responsavel text, status text
     );
 
-    DELETE FROM public.usuarios;
+    DELETE FROM public.usuarios WHERE true;
     INSERT INTO public.usuarios (ordem, nome, cpf, email, cargo, status)
     SELECT registro.ordem::integer, item.nome, item.cpf, item.email, item.cargo, item.status
     FROM jsonb_array_elements(dados -> 'usuarios') WITH ORDINALITY AS registro(valor, ordem)
