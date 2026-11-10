@@ -126,3 +126,17 @@ Para recomeçar com os exemplos, limpe as tabelas do Supabase e defina `iniciali
 Na próxima leitura, o sistema importará novamente os dados locais.
 
 **Atenção:** a rotina de reinicialização exige cuidado para não sobrescrever dados existentes.
+
+## ☁️ Publicar no Vercel
+
+O projeto usa `frontend/` como diretório raiz do Vercel. As funções em `frontend/api/` fornecem a configuração pública do Supabase e a API autenticada do inventário. O Vercel publica automaticamente a branch `main` conectada ao repositório.
+
+Configure estas variáveis nos ambientes Production, Preview e Development do projeto Vercel:
+
+- `SUPABASE_URL`: URL HTTPS do projeto Supabase.
+- `SUPABASE_PUBLISHABLE_KEY`: chave pública `sb_publishable_...` do Supabase.
+- `SUPABASE_ALLOWED_EMAILS`: e-mails autorizados separados por vírgula.
+
+A API do Vercel valida cada sessão do Supabase Auth e usa o token do próprio usuário para chamar as funções RPC. A chave secreta do servidor não é necessária no Vercel. As políticas RLS do banco limitam o acesso ao inventário aos e-mails autorizados. No Supabase, crie as contas em Authentication → Users para esses e-mails.
+
+Para execução local com PHP, mantenha `backend/.env` preenchido conforme `backend/.env.example`; essa API local usa também a chave secreta do servidor.

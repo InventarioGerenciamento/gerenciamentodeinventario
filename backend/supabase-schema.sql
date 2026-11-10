@@ -174,3 +174,21 @@ REVOKE EXECUTE ON FUNCTION public.carregar_inventario() FROM PUBLIC, anon, authe
 REVOKE EXECUTE ON FUNCTION public.salvar_inventario(jsonb) FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.carregar_inventario() TO service_role;
 GRANT EXECUTE ON FUNCTION public.salvar_inventario(jsonb) TO service_role;
+
+-- O Vercel envia o JWT do usuário às RPCs. O RLS permite acesso apenas às contas autorizadas.
+DO $$
+DECLARE
+    table_name text;
+    allowed_emails text := 'admin@empresa.com.br,estoque@empresa.com.br';
+BEGIN
+    FOREACH table_name IN ARRAY ARRAY['produtos', 'categorias', 'fornecedores', 'locais', 'usuarios', 'configuracao_inventario'] LOOP
+        EXECUTE format('GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE public.%I TO authenticated', table_name);
+        EXECUTE format('DROP POLICY IF EXISTS inventory_email_allowlist ON public.%I', table_name);
+        EXECUTE format(
+            'CREATE POLICY inventory_email_allowlist ON public.%I FOR ALL TO authenticated USING (lower(coalesce(auth.jwt()->>''email'', '''')) = ANY (string_to_array(%L, '',''))) WITH CHECK (lower(coalesce(auth.jwt()->>''email'', '''')) = ANY (string_to_array(%L, '','')))',
+            table_name, allowed_emails, allowed_emails
+        );
+    END LOOP;
+END $$;
+GRANT EXECUTE ON FUNCTION public.carregar_inventario() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.salvar_inventario(jsonb) TO authenticated;
