@@ -129,7 +129,7 @@ Na próxima leitura, o sistema importará novamente os dados locais.
 
 ## ☁️ Publicar no Vercel
 
-O projeto usa `frontend/` como diretório raiz do Vercel. As funções em `frontend/api/` fornecem a configuração pública do Supabase e a API autenticada do inventário. O Vercel publica automaticamente a branch `main` conectada ao repositório.
+O projeto usa `frontend/` como diretório raiz do Vercel. As funções em `frontend/api/` fornecem a configuração pública do Supabase e a API autenticada do inventário. O deploy atual foi publicado da branch `main`. A conta Vercel conectada não permite criar ou reconectar a integração Git deste projeto; até que um membro com essa permissão associe o repositório, publique futuras alterações iniciando um novo deploy da branch `main`.
 
 Configure estas variáveis nos ambientes Production, Preview e Development do projeto Vercel:
 
