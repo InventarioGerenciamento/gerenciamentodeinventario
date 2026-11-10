@@ -1039,3 +1039,11 @@ dialog form {
 .dashboard-head h1 { color: #3157c8; font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.8px; }
 .dashboard-head p { color: #3157c8; font-size: 15px; font-weight: 600; line-height: 1.65; }
 @media (max-width: 620px) { .dashboard-head h1 { font-size: 27px; } .dashboard-head p { font-size: 14px; } }
+
+.row-action.stock-in { border-color: #b8e6d2; background: #effaf5; color: #217956; }
+.row-action.stock-out { border-color: #f1d1ad; background: #fff8ef; color: #9a5d1e; }
+.row-action.stock-in:hover { border-color: #77cda6; color: #176644; }
+.row-action.stock-out:hover { border-color: #e7b67e; color: #82470f; }
+#stock-movement-dialog .stock-movement-feedback { min-height: 20px; margin: 0; color: #b44753; font-size: 13px; }
+#stock-movement-submit.stock-movement-out { background: #bd792a; border-color: #bd792a; }
+#stock-movement-submit:disabled { opacity: .65; cursor: wait; }
