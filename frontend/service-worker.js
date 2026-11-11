@@ -1,9 +1,9 @@
-const CACHE_NAME = "senai-estoque-v18";
+const CACHE_NAME = "senai-estoque-v19";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css",
-  "./assets/inventario-de-estoque.png",
+  "./assets/inventario-de-estoque.jpeg",
   "./app.js",
   "./stock-movements.js",
   "./manifest.webmanifest",
