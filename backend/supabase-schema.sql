@@ -1,5 +1,8 @@
+CREATE SEQUENCE IF NOT EXISTS public.produtos_codigo_seq;
+
 CREATE TABLE IF NOT EXISTS public.produtos (
     ordem integer PRIMARY KEY,
+    codigo text NOT NULL UNIQUE DEFAULT ('PRD-' || to_char(nextval('public.produtos_codigo_seq'), 'FM000000')),
     nome text NOT NULL,
     categoria text NOT NULL,
     fornecedor text NOT NULL,
@@ -123,12 +126,12 @@ BEGIN
     END IF;
 
     DELETE FROM public.produtos WHERE true;
-    INSERT INTO public.produtos (ordem, nome, categoria, fornecedor, marca, "local", quantidade, minimo, status)
-    SELECT registro.ordem::integer, item.nome, item.categoria, item.fornecedor, item.marca,
+    INSERT INTO public.produtos (ordem, codigo, nome, categoria, fornecedor, marca, "local", quantidade, minimo, status)
+    SELECT registro.ordem::integer, COALESCE(NULLIF(btrim(item.codigo), ''), 'PRD-' || to_char(nextval('public.produtos_codigo_seq'), 'FM000000')), item.nome, item.categoria, item.fornecedor, item.marca,
         item."local", item.quantidade, item.minimo, item.status
     FROM jsonb_array_elements(dados -> 'produtos') WITH ORDINALITY AS registro(valor, ordem)
     CROSS JOIN LATERAL jsonb_to_record(registro.valor) AS item(
-        nome text, categoria text, fornecedor text, marca text, "local" text,
+        codigo text, nome text, categoria text, fornecedor text, marca text, "local" text,
         quantidade integer, minimo integer, status text
     );
 
@@ -190,5 +193,6 @@ BEGIN
         );
     END LOOP;
 END $$;
+GRANT USAGE, SELECT ON SEQUENCE public.produtos_codigo_seq TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.carregar_inventario() TO authenticated;
 GRANT EXECUTE ON FUNCTION public.salvar_inventario(jsonb) TO authenticated;

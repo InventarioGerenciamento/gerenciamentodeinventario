@@ -1049,3 +1049,5 @@ dialog form {
 #stock-movement-submit:disabled { opacity: .65; cursor: wait; }
 
 .metric-clickable{font:inherit;text-align:left;cursor:pointer;color:inherit;transition:transform .16s ease,box-shadow .16s ease}.metric-clickable:hover,.metric-clickable:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px #24334a14;outline:2px solid #e9a0a8;outline-offset:2px}.metric-clickable .metric-note{display:block}
+
+.product-code{display:inline-block;padding:4px 7px;border-radius:5px;background:#f1f3ff;color:#5267d8;font:600 11px 'DM Sans',sans-serif;letter-spacing:.35px;white-space:nowrap}
