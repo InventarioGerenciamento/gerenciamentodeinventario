@@ -1051,3 +1051,5 @@ dialog form {
 .metric-clickable{font:inherit;text-align:left;cursor:pointer;color:inherit;transition:transform .16s ease,box-shadow .16s ease}.metric-clickable:hover,.metric-clickable:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px #24334a14;outline:2px solid #e9a0a8;outline-offset:2px}.metric-clickable .metric-note{display:block}
 
 .product-code{display:inline-block;padding:4px 7px;border-radius:5px;background:#f1f3ff;color:#5267d8;font:600 11px 'DM Sans',sans-serif;letter-spacing:.35px;white-space:nowrap}
+
+.site-qr-dialog{width:min(92vw,420px);padding:0;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--text);box-shadow:0 24px 80px #11182740}.site-qr-dialog::backdrop{background:#10182888;backdrop-filter:blur(3px)}.site-qr-content{padding:26px;text-align:center}.site-qr-content .dialog-top{text-align:left}.site-qr-image{display:block;width:240px;height:240px;max-width:75vw;margin:20px auto 14px;border:8px solid #fff;border-radius:12px}.site-qr-url{display:block;color:var(--primary);font-size:13px;font-weight:700;overflow-wrap:anywhere}.qr-open-button{font-size:22px}
