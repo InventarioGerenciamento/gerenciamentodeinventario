@@ -50,6 +50,6 @@ stockMovementForm.addEventListener('submit', async event => {
     render();
     const direction = type === 'entrada' ? 'Entrada registrada' : 'Saída registrada';
     const tone = balance <= minimum ? 'stock-alert' : type === 'saida' ? 'stock-warning' : '';
-    recordStockNotification(type==='entrada'?'Entrada de estoque':'Saída de estoque',product.nome+': '+(type==='entrada'?'+':'−')+amount+' '+(amount===1?'unidade':'unidades')+'. Saldo: '+balance+'.',tone); notify(`${direction}: ${amount} ${amount === 1 ? 'unidade' : 'unidades'} de ${product.nome}. Saldo: ${balance}.`, tone);
+    await recordStockNotification(type==='entrada'?'Entrada de estoque':'Saída de estoque',product.nome+': '+(type==='entrada'?'+':'−')+amount+' '+(amount===1?'unidade':'unidades')+'. Saldo: '+balance+'.',tone); notify(`${direction}: ${amount} ${amount === 1 ? 'unidade' : 'unidades'} de ${product.nome}. Saldo: ${balance}.`, tone);
   } finally { submit.disabled = false; }
 });

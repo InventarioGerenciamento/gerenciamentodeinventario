@@ -196,3 +196,35 @@ END $$;
 GRANT USAGE, SELECT ON SEQUENCE public.produtos_codigo_seq TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.carregar_inventario() TO authenticated;
 GRANT EXECUTE ON FUNCTION public.salvar_inventario(jsonb) TO authenticated;
+
+-- Shared stock notifications and per-user read state.
+CREATE TABLE IF NOT EXISTS public.stock_notifications (
+    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    title text NOT NULL,
+    message text NOT NULL,
+    tone text NOT NULL DEFAULT '' CHECK (tone IN ('', 'stock-alert', 'stock-warning')),
+    actor_user_id uuid DEFAULT auth.uid() REFERENCES auth.users(id) ON DELETE SET NULL,
+    actor_email text NOT NULL DEFAULT COALESCE(auth.jwt() ->> 'email', ''),
+    created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS stock_notifications_created_at_idx ON public.stock_notifications (created_at DESC);
+ALTER TABLE public.stock_notifications ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE public.stock_notifications FROM PUBLIC, anon, authenticated;
+GRANT SELECT, INSERT ON TABLE public.stock_notifications TO authenticated;
+DROP POLICY IF EXISTS stock_notifications_read_allowlist ON public.stock_notifications;
+CREATE POLICY stock_notifications_read_allowlist ON public.stock_notifications FOR SELECT TO authenticated USING (lower(coalesce(auth.jwt()->>'email','')) = ANY (string_to_array('admin@empresa.com.br,estoque@empresa.com.br', ',')));
+DROP POLICY IF EXISTS stock_notifications_insert_allowlist ON public.stock_notifications;
+CREATE POLICY stock_notifications_insert_allowlist ON public.stock_notifications FOR INSERT TO authenticated WITH CHECK (lower(coalesce(auth.jwt()->>'email','')) = ANY (string_to_array('admin@empresa.com.br,estoque@empresa.com.br', ',')) AND actor_user_id = (select auth.uid()) AND lower(actor_email) = lower(coalesce(auth.jwt()->>'email','')));
+CREATE TABLE IF NOT EXISTS public.stock_notification_reads (
+    user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    notification_id uuid NOT NULL REFERENCES public.stock_notifications(id) ON DELETE CASCADE,
+    read_at timestamptz NOT NULL DEFAULT now(),
+    PRIMARY KEY (user_id, notification_id)
+);
+ALTER TABLE public.stock_notification_reads ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE public.stock_notification_reads FROM PUBLIC, anon, authenticated;
+GRANT SELECT, INSERT ON TABLE public.stock_notification_reads TO authenticated;
+DROP POLICY IF EXISTS stock_notification_reads_own_rows ON public.stock_notification_reads;
+CREATE POLICY stock_notification_reads_own_rows ON public.stock_notification_reads FOR SELECT TO authenticated USING ((select auth.uid()) = user_id);
+DROP POLICY IF EXISTS stock_notification_reads_insert_own_rows ON public.stock_notification_reads;
+CREATE POLICY stock_notification_reads_insert_own_rows ON public.stock_notification_reads FOR INSERT TO authenticated WITH CHECK ((select auth.uid()) = user_id);
