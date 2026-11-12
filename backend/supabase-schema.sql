@@ -325,17 +325,19 @@ BEGIN
     UPDATE private.stock_pin_credentials SET failed_attempts = 0, locked_until = NULL WHERE user_id = uid;
 
     IF tipo = 'entrada' THEN
-        UPDATE public.produtos
-        SET quantidade = quantidade + registrar_movimentacao_estoque.quantidade,
-            status = CASE WHEN quantidade + registrar_movimentacao_estoque.quantidade <= minimo THEN 'Estoque baixo' ELSE 'Disponível' END
-        WHERE codigo = codigo_produto AND quantidade <= 2147483647 - registrar_movimentacao_estoque.quantidade
-        RETURNING produtos.quantidade, produtos.status INTO novo_saldo, novo_status;
+        UPDATE public.produtos AS produto
+        SET quantidade = produto.quantidade + registrar_movimentacao_estoque.quantidade,
+            status = CASE WHEN produto.quantidade + registrar_movimentacao_estoque.quantidade <= produto.minimo THEN 'Estoque baixo' ELSE 'Disponível' END
+        WHERE produto.codigo = registrar_movimentacao_estoque.codigo_produto
+          AND produto.quantidade <= 2147483647 - registrar_movimentacao_estoque.quantidade
+        RETURNING produto.quantidade, produto.status INTO novo_saldo, novo_status;
     ELSE
-        UPDATE public.produtos
-        SET quantidade = quantidade - registrar_movimentacao_estoque.quantidade,
-            status = CASE WHEN quantidade - registrar_movimentacao_estoque.quantidade <= minimo THEN 'Estoque baixo' ELSE 'Disponível' END
-        WHERE codigo = codigo_produto AND quantidade >= registrar_movimentacao_estoque.quantidade
-        RETURNING produtos.quantidade, produtos.status INTO novo_saldo, novo_status;
+        UPDATE public.produtos AS produto
+        SET quantidade = produto.quantidade - registrar_movimentacao_estoque.quantidade,
+            status = CASE WHEN produto.quantidade - registrar_movimentacao_estoque.quantidade <= produto.minimo THEN 'Estoque baixo' ELSE 'Disponível' END
+        WHERE produto.codigo = registrar_movimentacao_estoque.codigo_produto
+          AND produto.quantidade >= registrar_movimentacao_estoque.quantidade
+        RETURNING produto.quantidade, produto.status INTO novo_saldo, novo_status;
     END IF;
     IF NOT FOUND THEN
         RETURN jsonb_build_object('ok', false, 'code', 'STOCK_CONFLICT', 'error', 'Produto não encontrado ou quantidade indisponível. Atualize a tela e tente novamente.');
