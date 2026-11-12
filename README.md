@@ -75,9 +75,11 @@ O logotipo representa o sistema Senai Estoque – Gestão de Inventário. Deve s
 2. Em **Authentication → URL Configuration**, adicione o endereço do site às URLs permitidas. Para uso local, utilize `http://localhost:8000`.
 3. Copie a **Project URL**, a chave pública **anon/publishable** e a chave secreta do servidor (`service_role` ou `sb_secret_`).
 4. Copie `backend/.env.example` para `backend/.env` e preencha `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY` e `SUPABASE_ALLOWED_EMAILS`.
-5. No **SQL Editor**, execute `backend/supabase-schema.sql`.
+5. No **SQL Editor**, execute `backend/supabase-schema.sql`. Se o banco já estiver em uso, execute novamente o arquivo para habilitar os PINs e as novas funções protegidas.
 
 A API valida cada sessão com Supabase Auth. Contas fora da lista de e-mails autorizados são bloqueadas.
+
+Cada conta autorizada define seu próprio PIN de 4 dígitos em **PIN de movimentação**, no menu lateral. O PIN é armazenado como hash no banco e solicitado em cada entrada e saída; cinco tentativas incorretas bloqueiam novas tentativas por 15 minutos. O saldo não pode ser alterado pelo formulário de produto e um produto com saldo positivo não pode ser excluído antes de registrar a saída.
 
 A chave secreta nunca deve ser colocada no frontend ou publicada no GitHub. O arquivo `.env` está excluído do Git.
 

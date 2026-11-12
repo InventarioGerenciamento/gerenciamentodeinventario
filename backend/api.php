@@ -45,8 +45,8 @@ function supabase_credentials(): array
 
 function authenticated_user(): array
 {
-    $authorization = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
-    if (preg_match('/^Bearer\\s+(.+)$/i', trim($authorization), $matches) !== 1) {
+    $token = request_access_token();
+    if ($token === null) {
         throw new UnauthorizedException('Entre com sua conta para continuar.');
     }
     [$url, , $anonKey, $allowedEmails] = supabase_credentials();
@@ -56,7 +56,7 @@ function authenticated_user(): array
     }
     $context = stream_context_create(['http' => [
         'method' => 'GET',
-        'header' => "apikey: " . $anonKey . "\r\nAuthorization: Bearer " . $matches[1] . "\r\nAccept: application/json",
+        'header' => "apikey: " . $anonKey . "\r\nAuthorization: Bearer " . $token . "\r\nAccept: application/json",
         'ignore_errors' => true,
         'timeout' => 10,
     ]]);
@@ -88,16 +88,24 @@ function authenticated_user(): array
     return $user;
 }
 
+function request_access_token(): ?string
+{
+    $authorization = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
+    return preg_match('/^Bearer\\s+(.+)$/i', trim($authorization), $matches) === 1 ? $matches[1] : null;
+}
+
 final class UnauthorizedException extends RuntimeException {}
 
-function supabase_request(string $endpoint, string $method = 'GET', ?array $payload = null): array|null
+function supabase_request(string $endpoint, string $method = 'GET', ?array $payload = null, ?string $accessToken = null): array|null
 {
     [$url, $key] = supabase_credentials();
     $headers = [
         'Accept: application/json',
         'apikey: ' . $key,
     ];
-    if (!str_starts_with($key, 'sb_secret_')) {
+    if ($accessToken !== null) {
+        $headers[] = 'Authorization: Bearer ' . $accessToken;
+    } elseif (!str_starts_with($key, 'sb_secret_')) {
         $headers[] = 'Authorization: Bearer ' . $key;
     }
     $options = [
@@ -129,6 +137,9 @@ function supabase_request(string $endpoint, string $method = 'GET', ?array $payl
     if ($response === false || $status < 200 || $status >= 300) {
         $details = $response === false ? 'Sem resposta do Supabase.' : $response;
         error_log('Falha na API Supabase (' . $status . '): ' . $details);
+        if (str_contains($details, 'Registre uma saída antes de excluir')) {
+            throw new RuntimeException('Registre uma saída de estoque antes de excluir um produto que ainda tem saldo.');
+        }
         throw new RuntimeException('Não foi possível acessar o Supabase. Confira a URL, a chave secreta e se o esquema SQL foi executado.');
     }
     if ($response === '') {
@@ -166,9 +177,9 @@ function migrate_local_inventory(): array
     return initial_data();
 }
 
-function load_supabase_data(): array
+function load_supabase_data(string $accessToken): array
 {
-    $result = supabase_request('rpc/carregar_inventario');
+    $result = supabase_request('rpc/carregar_inventario', 'GET', null, $accessToken);
     if (!is_array($result) || !isset($result['inicializado'], $result['dados']) || !is_array($result['dados'])) {
         throw new RuntimeException('A resposta do Supabase não tem o formato esperado. Execute backend/supabase-schema.sql no projeto.');
     }
@@ -176,7 +187,7 @@ function load_supabase_data(): array
     if ($result['inicializado'] !== true) {
         $seed = migrate_local_inventory();
         validate_data($seed);
-        supabase_request('rpc/salvar_inventario', 'POST', ['dados' => $seed]);
+        supabase_request('rpc/salvar_inventario', 'POST', ['dados' => $seed], $accessToken);
         return $seed;
     }
 
@@ -400,8 +411,9 @@ if (isset($_GET['api']) || in_array(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP
 
     try {
         authenticated_user();
+        $accessToken = request_access_token();
         if ($method === 'GET') {
-            echo json_encode(load_supabase_data(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            echo json_encode(load_supabase_data($accessToken), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             exit;
         }
 
@@ -409,8 +421,45 @@ if (isset($_GET['api']) || in_array(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP
         if (!is_array($payload)) {
             throw new InvalidArgumentException('Dados de inventário inválidos.');
         }
+
+        if (($payload['action'] ?? null) === 'configure_stock_pin') {
+            $newPin = (string)($payload['newPin'] ?? '');
+            $currentPin = isset($payload['currentPin']) ? (string)$payload['currentPin'] : null;
+            if (preg_match('/^\\d{4}$/', $newPin) !== 1 || ($currentPin !== null && preg_match('/^\\d{4}$/', $currentPin) !== 1)) {
+                throw new InvalidArgumentException('O PIN precisa ter 4 dígitos.');
+            }
+            $result = supabase_request('rpc/configurar_pin_estoque', 'POST', ['novo_pin' => $newPin, 'pin_atual' => $currentPin], $accessToken);
+            if (($result['ok'] ?? false) !== true) {
+                http_response_code(($result['code'] ?? '') === 'PIN_LOCKED' ? 423 : 400);
+                echo json_encode(['error' => $result['error'] ?? 'Não foi possível configurar o PIN.'], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo json_encode(['configured' => true]);
+            exit;
+        }
+
+        if (($payload['action'] ?? null) === 'stock_movement') {
+            $pin = (string)($payload['pin'] ?? '');
+            $productCode = (string)($payload['productCode'] ?? '');
+            $type = (string)($payload['type'] ?? '');
+            $quantity = filter_var($payload['quantity'] ?? null, FILTER_VALIDATE_INT);
+            if (preg_match('/^\\d{4}$/', $pin) !== 1 || $productCode === '' || !in_array($type, ['entrada', 'saida'], true) || $quantity === false || $quantity <= 0) {
+                throw new InvalidArgumentException('Dados da movimentação inválidos.');
+            }
+            $result = supabase_request('rpc/registrar_movimentacao_estoque', 'POST', [
+                'pin' => $pin, 'codigo_produto' => $productCode, 'tipo' => $type, 'quantidade' => $quantity,
+            ], $accessToken);
+            if (($result['ok'] ?? false) !== true) {
+                $code = $result['code'] ?? '';
+                http_response_code($code === 'PIN_NOT_SET' || $code === 'STOCK_CONFLICT' ? 409 : ($code === 'PIN_LOCKED' ? 423 : 400));
+                echo json_encode(['error' => $result['error'] ?? 'Não foi possível registrar a movimentação.'], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            echo json_encode(['quantity' => $result['quantidade'], 'status' => $result['status']], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
         validate_data($payload);
-        supabase_request('rpc/salvar_inventario', 'POST', ['dados' => $payload]);
+        supabase_request('rpc/salvar_inventario', 'POST', ['dados' => $payload], $accessToken);
         echo json_encode(['saved' => true]);
         exit;
     } catch (UnauthorizedException $error) {

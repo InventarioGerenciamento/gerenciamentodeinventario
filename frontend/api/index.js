@@ -119,10 +119,44 @@ module.exports = async (request, response) => {
     if (typeof body === 'string') {
       try { body = JSON.parse(body); } catch { body = null; }
     }
+
+    if (body?.action === 'configure_stock_pin') {
+      if (!/^\d{4}$/.test(String(body.newPin || '')) || (body.currentPin && !/^\d{4}$/.test(String(body.currentPin)))) {
+        return response.status(400).json({ error: 'O PIN precisa ter 4 dígitos.' });
+      }
+      const configured = await supabaseFetch('/rest/v1/rpc/configurar_pin_estoque', token, 'POST', {
+        novo_pin: String(body.newPin),
+        pin_atual: body.currentPin ? String(body.currentPin) : null,
+      });
+      if (!configured.response.ok) return response.status(502).json({ error: 'Não foi possível salvar o PIN. Aplique a atualização do esquema Supabase.' });
+      if (!configured.data?.ok) return response.status(configured.data?.code === 'PIN_LOCKED' ? 423 : 400).json({ error: configured.data?.error || 'Não foi possível configurar o PIN.' });
+      return response.status(200).json({ configured: true });
+    }
+
+    if (body?.action === 'stock_movement') {
+      const amount = Number(body.quantity);
+      if (!/^\d{4}$/.test(String(body.pin || '')) || typeof body.productCode !== 'string' || !body.productCode.trim()
+        || !['entrada', 'saida'].includes(body.type) || !Number.isSafeInteger(amount) || amount <= 0 || amount > 2147483647) {
+        return response.status(400).json({ error: 'Dados da movimentação inválidos.' });
+      }
+      const movement = await supabaseFetch('/rest/v1/rpc/registrar_movimentacao_estoque', token, 'POST', {
+        pin: String(body.pin), codigo_produto: body.productCode, tipo: body.type, quantidade: amount,
+      });
+      if (!movement.response.ok) return response.status(502).json({ error: 'Não foi possível registrar a movimentação. Aplique a atualização do esquema Supabase.' });
+      if (!movement.data?.ok) {
+        const status = movement.data?.code === 'PIN_NOT_SET' ? 409 : movement.data?.code === 'PIN_LOCKED' ? 423 : movement.data?.code === 'STOCK_CONFLICT' ? 409 : 400;
+        return response.status(status).json({ error: movement.data?.error || 'Não foi possível registrar a movimentação.' });
+      }
+      return response.status(200).json({ quantity: movement.data.quantidade, status: movement.data.status });
+    }
+
     if (!validateInventory(body)) return response.status(400).json({ error: 'Dados de inventário inválidos.' });
 
     const saved = await supabaseFetch('/rest/v1/rpc/salvar_inventario', token, 'POST', { dados: body });
     if (!saved.response.ok) {
+      if (String(saved.data?.message || '').includes('Registre uma saída antes de excluir')) {
+        return response.status(409).json({ error: 'Registre uma saída de estoque antes de excluir um produto que ainda tem saldo.' });
+      }
       return response.status(502).json({ error: 'Não foi possível salvar os dados no Supabase.' });
     }
     return response.status(200).json({ saved: true });
