@@ -861,6 +861,11 @@ dialog form {
   font-weight: 600;
   color: #637087;
 }
+.stock-balance-help {
+  color: #8290a4;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
 .form-field input,
 .form-field select {
   height: 36px;

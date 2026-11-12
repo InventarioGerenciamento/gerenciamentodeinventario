@@ -10,8 +10,26 @@ new MutationObserver(() => {
     if (!quantityField.value) quantityField.value = '0';
     quantityField.readOnly = true;
     quantityField.title = 'Altere o saldo pelos botões de entrada e saída, com seu PIN.';
+    const field = quantityField.closest('.form-field');
+    if (field && !field.querySelector('.stock-balance-help')) {
+      const help = document.createElement('small');
+      help.className = 'stock-balance-help';
+      help.textContent = document.getElementById('dialog-title').textContent.startsWith('Cadastrar')
+        ? 'O saldo começa em zero. Após salvar, use Entrada na lista de produtos e confirme com seu PIN.'
+        : 'Para alterar o saldo, use Entrada ou Saída na lista de produtos e confirme com seu PIN.';
+      field.append(help);
+    }
   }
 }).observe(document.getElementById('form-fields'), { childList: true, subtree: true });
+document.getElementById('content').addEventListener('click', event => {
+  if (!(event.target instanceof Element)) return;
+  const button = event.target.closest('[data-delete][data-key="produtos"]');
+  if (!button) return;
+  const product = data.produtos[Number(button.dataset.delete)];
+  if (!product || Number(product.quantidade) <= 0) return;
+  event.stopImmediatePropagation();
+  notify(`Registre uma saída de estoque antes de excluir ${product.nome}. O saldo precisa chegar a zero.`);
+}, true);
 function openStockMovement(productIndex, type) {
   const product = data.produtos[productIndex];
   if (!product) return;
